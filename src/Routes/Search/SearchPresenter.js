@@ -1,16 +1,63 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import styled from "styled-components";
+import Section from "Components/Sections";
+import Loader from "../../Components/Loader";
 
-const SearchPresetner = ({movieResults, tvResults, searchTerm, handleSubmit, loading, error}) => null;
+const Container = styled.div`
+  padding:20px;
+`;
 
-SearchPresetner.PropTypes = {
-  movieResults: PropTypes.array,
-  tvResults: PropTypes.array,
-  searchTerm: PropTypes.string,
-  handleSubmit: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.string
+const Form = styled.form`
+  margin-bottom:50px;
+  width:100%;
+`;
+
+const Input = styled.input`
+  margin-bottom: 50px;
+  width: 100%;
+`;
+
+const SearchPresetner = ({movieResults, tvResults, searchTerm, handleSubmit,updateTerm, loading, error}) => (
+  <Container>
+    <Form onSubmit={handleSubmit}>
+      <Input
+        placeholder="Search Movies or TV Shows..."
+        value={searchTerm}
+        onChange={updateTerm}
+      />
+    </Form>
+    {loading ? (
+      <Loader />
+    ) : (
+      <>
+        {movieResults && movieResults.length > 0 && (
+          <Section title="Movie Results">
+            {movieResults.map(movie => (
+              <span key={movie.id}>{movie.title}</span>
+            ))}
+          </Section>
+        )}
+        {tvResults && tvResults.length > 0 && (
+          <Section title="TV Show Results">
+            {tvResults.map(show => (
+              <span key={show.id}>{show.name}</span>
+            ))}
+          </Section>
+        )}
+      </>
+    )}
+  </Container>
+);
+
+SearchPresetner.propTypes = {
+  movieResults: propTypes.array,
+  tvResults: propTypes.array,
+  searchTerm: propTypes.string,
+  handleSubmit: propTypes.func.isRequired,
+  updateTerm: propTypes.isRequired,
+  loading: propTypes.bool.isRequired,
+  error: propTypes.string
 }
 
 export default SearchPresetner;
