@@ -1,8 +1,31 @@
 import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
+import Section from "../../Components/Sections";
+import Loader from "../../Components/Loader";
 
-const TVPresetner = ({topRated, popular, airingToday, loading, error}) => null;
+const Container = styled.div``;
+
+const TVPresetner = ({topRated, popular, airingToday, loading, error}) => 
+  loading ? <Loader /> : 
+  <Container>
+    {topRated && topRated.length > 0 && (
+      <Section title="Top Rated Shows">
+        {topRated.map(show => show.name )}
+      </Section>
+    )}
+    {popular && popular.length > 0 && (
+      <Section title="popular Shows">
+        {popular.map(show => show.name )}
+      </Section>
+    )}
+    {airingToday && airingToday.length > 0 && (
+      <Section title="airingToday">
+        {airingToday.map(show => show.name )}
+      </Section>
+    )}
+
+    </Container>
 
 TVPresetner.propTypes = {
   topRated: propTypes.array,
