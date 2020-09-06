@@ -3,7 +3,7 @@ import propTypes from "prop-types";
 import styled from "styled-components";
 import Section from "Components/Sections";
 import Loader from "../../Components/Loader";
-import Message from "../../Compontents/Error";
+import Message from "../../Components/Message";
 
 const Container = styled.div`
   padding:20px;
@@ -49,7 +49,7 @@ const SearchPresetner = ({movieResults, tvResults, searchTerm, handleSubmit,upda
       </>
     )}
     {error && <Message color="#e74c3c" text={error}/> }
-    {tvResults && movieResults && tnResults.length === 0 && (
+    {tvResults && movieResults && tvResults.length === 0 && (
       <Message text="Nothin found" color="#95a5a6" />
     )}
   </Container>
