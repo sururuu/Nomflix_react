@@ -72,6 +72,17 @@ const Company = styled.div`
   width: 50%
   font-weight:50px;
   margin-bottom: 30px;
+`;
+const Season = styled.div`
+  width: 30%;
+  background-image: url(${props => props.bgImage});
+  background-position: center center;
+  background-size: cover;
+  height: 30%;
+  border-radius: 5px;
+`;
+const Imdb = styled.button`
+  margin-top:5px;
 `
 const DetailPresenter = ({ result, loading, error,isMovie }) =>
   loading ? (
@@ -106,6 +117,9 @@ const DetailPresenter = ({ result, loading, error,isMovie }) =>
               ? result.original_title
               : result.original_name}
           </Title>
+          <Imdb imdbUrl={result.homepage}>
+            <a href={`${result.homepage}`}>IMDB</a>
+          </Imdb>
           <ItemContainer>
             <Item>
               {result.release_date
@@ -127,14 +141,23 @@ const DetailPresenter = ({ result, loading, error,isMovie }) =>
             </Item>
           </ItemContainer>
           <Company>            
-            {isMovie &&
+            {
               result.production_companies &&
                result.production_companies.map((company) =>
                 `${company.name} / `)
               }
           </Company>
           <Overview>{result.overview}</Overview>
-          
+          <Season 
+             bgImage={
+              !isMovie &&
+                result.seasons &&
+                result.seasons.map((season) => 
+                season.poster_path
+                ? `https://image.tmdb.org/t/p/original${season.poster_path}`
+                : require("../../assets/noPosterSmall.png"))
+            }/> 
+         
         </Data>
       </Content>
     </Container>
