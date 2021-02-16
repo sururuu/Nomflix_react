@@ -25,7 +25,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "zen-swirles-14dd87.netlify.app",
+  "homepage": "https://zen-swirles-14dd87.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
