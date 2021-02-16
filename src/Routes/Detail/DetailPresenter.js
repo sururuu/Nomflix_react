@@ -67,8 +67,13 @@ const Overview = styled.p`
   line-height: 1.5;
   width: 50%;
 `;
-
-const DetailPresenter = ({ result, loading, error }) =>
+const Company = styled.div`
+  font-size: 13px;
+  width: 50%
+  font-weight:50px;
+  margin-bottom: 30px;
+`
+const DetailPresenter = ({ result, loading, error,isMovie }) =>
   loading ? (
     <>
       <Helmet>
@@ -121,7 +126,15 @@ const DetailPresenter = ({ result, loading, error }) =>
                 )}
             </Item>
           </ItemContainer>
+          <Company>            
+            {isMovie &&
+              result.production_companies &&
+               result.production_companies.map((company) =>
+                `${company.name} / `)
+              }
+          </Company>
           <Overview>{result.overview}</Overview>
+          
         </Data>
       </Content>
     </Container>
@@ -130,7 +143,8 @@ const DetailPresenter = ({ result, loading, error }) =>
 DetailPresenter.propTypes = {
   result: PropTypes.object,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.string
+  error: PropTypes.string,
+  isMovie: PropTypes.bool.isRequired
 };
 
 export default DetailPresenter;
